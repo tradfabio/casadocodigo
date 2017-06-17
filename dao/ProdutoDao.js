@@ -16,9 +16,11 @@ module.exports = ProdutoDao;
 */
 
 //ES6
+const connectionFactory = require('../infra/connectionFactory')
+
 class ProdutoDao {
-  constructor(connection){
-    this.connection = connection;
+  constructor(){
+    this.connection = connectionFactory();
   }
 
 //  lista(callback) {
@@ -28,6 +30,7 @@ class ProdutoDao {
 
     lista(callback) {
       this.connection.query('SELECT * FROM livros', callback);
+      this.connection.end();
     }
 }
 
