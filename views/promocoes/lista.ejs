@@ -1,0 +1,28 @@
+<% include ../includes/header.ejs %>
+
+    <!-- FINAL NAV -->
+    <div>
+        <div class ="container min-container">
+            <h2 class="basic-title">Listagem de promoções</h2>
+            <div class="well">
+                <table class="table table-condensed table-bordered table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <td><a href="">Título</a></td>
+                        <td><a href="">Descrição</a></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <% lista.forEach((item) => { %>
+                        <tr>
+                            <td><%= item.titulo %></td>
+                            <td><p><%= item.descricao %></p></td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+                <a href="/promocoes/cadastro" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Nova Promoção</a>
+            </div>
+        </div>
+    </div>
+<% include ../includes/footer.ejs %>

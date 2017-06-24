@@ -31,7 +31,11 @@ function produtosRoutes(app){
     req.assert('titulo', 'Titulo deve ser preenchido').notEmpty();
     req.assert('preco', 'Preco nao pode ser vazio').isFloat();
     req.assert('preco', 'Preco deve ser um numero').isFloat();
+    req.assert('preco', 'Preco menor que 10').ehMenor(10);
+
     const errors = req.validationErrors()
+
+    console.log(errors);
 
     if (errors) {
       res.format({
@@ -48,6 +52,7 @@ function produtosRoutes(app){
     const livro = req.body;
     const produtoDao = new ProdutoDao();
 
+    console.log(livro);
 
     produtoDao.insere (livro, (err, result, fields) => {
       if (err) {
