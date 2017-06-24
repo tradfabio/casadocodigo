@@ -1,6 +1,11 @@
 <% include ../includes/header.ejs %>
 
 <div>
+    <ul class="list-unstyled container">
+    <% errors.forEach((error, index) =>{ %>
+      <li class="alert alert-danger"><%= error.msg%></li>
+    <%})%>
+  </ul>
     <div class ="container min-container">
         <h2 class="basic-title">Add</h2>
 

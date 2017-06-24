@@ -9,9 +9,17 @@ function produtosRoutes(app){
       if (err) {
         res.render('503', {err});
       } else {
-        console.log(result);
-        res.render('produtos/lista',{lista:result});
-      }
+        //console.log(result);
+
+        res.format({
+          html: () => {
+            res.render('produtos/lista',{lista:result});
+          },
+          json: () => {
+            res.json({lista:result});
+          }
+        });
+      };
     });
 
     //console.log('Recebeu requisição!!!');
@@ -19,8 +27,27 @@ function produtosRoutes(app){
   });
 
   app.post("/produtos", (req,res) =>{
+
+    req.assert('titulo', 'Titulo deve ser preenchido').notEmpty();
+    req.assert('preco', 'Preco nao pode ser vazio').isFloat();
+    req.assert('preco', 'Preco deve ser um numero').isFloat();
+    const errors = req.validationErrors()
+
+    if (errors) {
+      res.format({
+        html: function(){
+          res.status(400).render('produtos/form', {errors});
+        },
+        json: function(){
+          res.status(400).json(errors);
+        }
+      })
+      return
+    }
+
     const livro = req.body;
     const produtoDao = new ProdutoDao();
+
 
     produtoDao.insere (livro, (err, result, fields) => {
       if (err) {
