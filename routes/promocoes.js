@@ -15,6 +15,7 @@ module.exports = function(app) {
 
     promocaoDao.salva(promocao, (err, result, fields) => {
       if(!err) {
+        app.get('io').emit('novaPromocao', promocao);
         res.redirect('/promocoes/lista')
       } else {
         res.render('503')
